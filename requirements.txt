@@ -1,0 +1,9 @@
+Packages:
+
+Use "pip install" to install the packages below:
+
+djangorestframework
+django-bootstrap-v5
+crispy-bootstrap5
+django-crispy-forms
+mysqlclient

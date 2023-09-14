@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{%static 'css/view.css'%}">
+<div class="main">
+    <div class="btn-set">
+        <a href="/{{view.id}}/update"><button class="btn btn-success">Update</button></a>
+        <a href="/{{view.id}}/delete"><button class="btn btn-danger">Delete</button></a>
+    </div>
+    <form class="form">
+        <fieldset>
+            <div class="form-row">
+                <div class="left-col">
+                    <label class="label" for="">Inventory Type</label>
+                    <p class="details">{{ view.inv_type }}</p>
+                    <label class="label" for="">Quantity</label>
+                    <p class="details">{{ view.inv_quantity }}</p>
+                    <label class="label" for="">Description</label>
+                    <p class="details">{{ view.inv_description }}</p>
+                    <label class="label" for="">Location</label>
+                    <p class="details">{{ view.inv_loc }}</p>
+                </div>
+                <div class="right-col">
+                    <label class="label" for="">Model No.</label>
+                    <p class="details">{{ view.inv_model }}</p>
+                    <label class="label" for="">Serial No.</label>
+                    <p class="details">{{ view.inv_serial }}</p>
+                    <label class="label" for="">Acquisition Date</label>
+                    <p class="details">{{ view.inv_acqDate }}</p>
+                    <label class="label" for="">Acquisition Cost</label>
+                    <p class="details">Php {{ view.inv_acqCost }}</p>
+                    <label class="label" for="">Classification</label>
+                    <p class="details">{{ view.inv_class }}</p>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    
+
+
+ 
+</div>
+{% endblock content %}
+    
