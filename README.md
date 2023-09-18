@@ -5,7 +5,7 @@ The Inventory Supply Management System (ISMS) is a volatile data management syst
 
 # Technical Usage
 ## Framework
-[Django](https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png)
+![Django](https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png)
 The system uses a basic Django-Python web application framework which enables a faster and eaiser data manipulation for the end users. The system also implements REST APIs (*under development*) which will soon use as a optimizable API for bigger use of data in the future.
 <br>
 >Installed applications used for the system development
