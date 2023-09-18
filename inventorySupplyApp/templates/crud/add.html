@@ -4,7 +4,7 @@
 {% block content %}
 <div class="col-md-12">
 
-    <form method="POST" class="post-form" action="/add">
+    <form method="POST" class="post-form" action="{% url 'add' %}">
         {% csrf_token %}
         <div class="container-fluid">
             <br>
@@ -19,6 +19,12 @@
                 <label class="col-sm-2 col-form-label">Type:</label>
                 <div class="col-sm-4">
                     {{ form.inv_type }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Quantity:</label>
+                <div class="col-sm-4">
+                    {{ form.inv_quantity }}
                 </div>
             </div>
             <div class="form-group row">
