@@ -1,3 +1,10 @@
 .main{
     padding-top: 10vh;
+}   
+.lbl-view{
+    color: #7D7C7C;
+    font-weight: bold;
+}
+.txt-view{
+    font-size: 25px;
 }

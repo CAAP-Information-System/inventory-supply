@@ -8,6 +8,11 @@
 .left-col{
     width: 60%;
 }
+.right-col{
+    border-radius: 10px;
+    background-color: #F1EFEF;
+    padding: 5vh;
+}
 .label{
     font-size: 20px;
     font-weight: bold;
@@ -17,5 +22,6 @@
 }
 
 .details{
+    font-size: 20px;
     text-align: justify;
 }
