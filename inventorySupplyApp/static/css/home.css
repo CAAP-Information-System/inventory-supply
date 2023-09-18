@@ -8,3 +8,9 @@
 .txt-view{
     font-size: 25px;
 }
+.messages{
+    padding: 10px;
+    font-size: 16px;
+    background-color: #22668D;
+    color: #ffff;
+}
