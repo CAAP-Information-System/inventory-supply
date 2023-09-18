@@ -4,10 +4,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{%static 'css/view.css'%}">
 <div class="main">
-    <div class="btn-set">
-        <a href="/{{view.id}}/update"><button class="btn btn-success">Update</button></a>
-        <a href="/{{view.id}}/delete"><button class="btn btn-danger">Delete</button></a>
-    </div>
+
     <form class="form">
         <fieldset>
             <div class="form-row">
@@ -31,12 +28,16 @@
                     <label class="label" for="">Acquisition Cost</label>
                     <p class="details">Php {{ view.inv_acqCost }}</p>
                     <label class="label" for="">Classification</label>
-                    <p class="details">{{ view.inv_class }}</p>
+                    <p class="details" style="text-align: left;">{{ view.inv_class }}</p>
                 </div>
             </div>
         </fieldset>
+        <div class="btn-set">
+            <a href="/{{view.id}}/update"><button class="btn btn-success">Update</button></a>
+            <a href="/{{view.id}}/delete"><button class="btn btn-danger">Delete</button></a>
+        </div>
     </form>
-    
+
 
 
  

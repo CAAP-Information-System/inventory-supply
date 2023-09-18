@@ -4,7 +4,7 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{%static 'css/home.css'%}">
-<h2 style="padding: 10px;">Dashboard</h2>
+<h1 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard' ></i>&nbsp;Dashboard</h2>
 <div class="input-group">
     <form style="padding: 10px;" action="/" method="POST">
         {% csrf_token %}
@@ -19,11 +19,11 @@
 <br>
 
 {% if messages %}
-  <ul class="messages">
+<ul class="messages">
     {% for message in messages %}
-      <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
     {% endfor %}
-  </ul>
+</ul>
 {% endif %}
 
 {% if searched %}
@@ -33,7 +33,7 @@
     <table id="bootstrapdatatable" class="table table-bordered" width="100%">
         <thead>
             <th>TYPE</th>
-            <th>QUANTITY</th>   
+            <th>QUANTITY</th>
             <th>DESCRIPTION</th>
             <th>PROPERTY NO</th>
             <th>MODEL NO</th>
@@ -57,7 +57,7 @@
                     <a href="{% url 'view' inv.id %}">
                         {{ inv.inv_serial|linebreaksbr}}
                     </a>
-                    
+
                 </td>
                 <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
                 <td>{{ inv.inv_acqCost|linebreaksbr}}</td>
@@ -67,15 +67,15 @@
 
                 <td colspan="2">
                     <p data-placement="top" data-toggle="tooltip" title="Edit">
-                        <a href="{% url 'update_inventory' inv.id %}" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal"
-                            data-target="#edit">
+                        <a href="{% url 'update_inventory' inv.id %}" class="btn btn-primary btn-xs" data-title="Edit"
+                            data-toggle="modal" data-target="#edit">
                             Edit
                         </a>
                     </p>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                         Delete
-                      </button>
-                </p>
+                    </button>
+                    </p>
 
                 </td>
             </tr>
@@ -102,7 +102,8 @@
             <th>
                 <a href="{% url 'home' sort_order=toggle_sort_order %}">
                     <i class='bx bx-sort'></i>LOCATION
-                </a></th>
+                </a>
+            </th>
             <th>CLASSIFICATION</th>
             <th colspan="2"></th>
         </thead>
@@ -127,19 +128,20 @@
 
 
                 <td colspan="2">
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#viewModal{{inv.id}}">
-                        View  
-                      </button>
-                    
-                    <p data-placement="top" data-toggle="tooltip" title="Edit">
-                        <a href="{% url 'update' inv.id %}" class="btn btn-primary btn-xs" >
-                            Edit
-                        </a>
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#viewModal{{inv.id}}">
+                        View
+                    </button>
+                    <div style="margin-top: 15px;"></div>
+                    <a href="{% url 'update' inv.id %}" class="btn btn-primary">
+                        Edit
+                    </a>
+                    <div style="margin-top: 15px;"></div>
+                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#deleteModal{{inv.id}}">
+                        Delete
+                    </button>
                     </p>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{inv.id}}">
-                        Delete  
-                      </button>
-                </p>
 
                 </td>
 
@@ -154,11 +156,12 @@
 {% endif %}
 
 {% for inv in inventory %}
-<div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete inventory</h5>
+                <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -179,9 +182,10 @@
 </div>
 {% endfor %}
 
-    
+
 {% for inv in inventory %}
-<div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -191,7 +195,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="">
+                <form action="" style="padding: 10px;">
                     <label class="lbl-view">Serial Number:</label>
                     <div class="txt-view">{{inv.inv_serial}}</div>
                     <label class="lbl-view">Type:</label>
@@ -199,13 +203,17 @@
                     <label class="lbl-view">Acquisition Date:</label>
                     <div class="txt-view">{{inv.inv_acqDate}}</div>
                 </form>
-            
+
             </div>
             <div class="modal-footer">
-                <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs" >
-                    View full details
-                </a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>  
+                <div style="display: flex; align-items: center;">
+                    <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs">
+                        Check full details 
+                        <i class='bx bx-chevron-right bx-sm'></i>
+                    </a>
+                </div>
+                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
