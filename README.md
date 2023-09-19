@@ -1,7 +1,7 @@
 # Inventory Supply Management System
 
 ## Getting Started
-The Inventory Supply Management System (ISMS) is a volatile data management system which provides an inventory overlook for the supplies that are going in and out of the agency. The inventory system is developed for a faster way of recording the data to the system.
+The Inventory Management System (IMS) is a practical data management application which provides the elements of every data input to  overlook throughout the process and this can be used to easily track the procurement of the supplies for the agency. The inventory system is developed for a faster way of recording the data to the system.
 
 # Technical Usage
 ## Framework

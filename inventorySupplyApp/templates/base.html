@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,40 +7,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{%static 'css/base.css'%}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
   <title>Home</title>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
-
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="{% url 'add' %}" class="btn btn-primary"><i class='bx bxs-add-to-queue'></i>&nbsp; Add Record</a>
-      </li>
-  </div>
-</nav>
 
 <body>
+  <header>
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+            <a href="{% url 'add' %}" class="btn btn-primary"><i class='bx bxs-add-to-queue'></i>&nbsp; Add Record</a>
+          </a>
+          <a href="/" class="list-group-item list-group-item-action py-2 ripple" style="margin-top: 5px;" >
+            <i class='bx bxs-dashboard' ></i>&nbsp;<span>Dashboard</span>
+          </a>
+          <a href="{% url 'error_404' %}" class="list-group-item list-group-item-action py-2 ripple" style="margin-top: 5px;" >
+            <i class='bx bxs-data'></i>&nbsp;<span>Analytics</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2>Navigation</h2>
+
+      </div>
+    </nav>
+  </header>
+
+  <main style="margin-top: 58px;">
+    {% block content %}
 
 
-  {% block content %}
 
 
-
-
-  {% endblock content %}
+    {% endblock content %}
+    <div class="container pt-2"></div>
+  </main>
 
 </body>
 
