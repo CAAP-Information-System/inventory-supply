@@ -21,14 +21,20 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="/" class="list-group-item list-group-item-action py-2 ripple" style="margin-top: 5px;">
+            <i class='bx bxs-dashboard'></i>&nbsp;<span>Dashboard</span>
+          </a>
+          <a href="{% url 'error_404' %}" class="list-group-item list-group-item-action py-2 ripple"
+            style="margin-top: 5px;">
+            <i class='bx bxs-data'></i>&nbsp;<span>Analytics</span>
+          </a>
+          <a href="{% url 'error_404' %}" class="list-group-item list-group-item-action py-2 ripple"
+          style="margin-top: 5px;">
+          <i class='bx bx-history'></i>&nbsp;<span>History</span>
+        </a>
+          <div style="margin-top: 5vh;"></div>
           <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
             <a href="{% url 'add' %}" class="btn btn-primary"><i class='bx bxs-add-to-queue'></i>&nbsp; Add Record</a>
-          </a>
-          <a href="/" class="list-group-item list-group-item-action py-2 ripple" style="margin-top: 5px;" >
-            <i class='bx bxs-dashboard' ></i>&nbsp;<span>Dashboard</span>
-          </a>
-          <a href="{% url 'error_404' %}" class="list-group-item list-group-item-action py-2 ripple" style="margin-top: 5px;" >
-            <i class='bx bxs-data'></i>&nbsp;<span>Analytics</span>
           </a>
         </div>
       </div>
@@ -40,7 +46,7 @@
           aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
-        <h2>Navigation</h2>
+        <h2 class="navbar-brand">Inventory Management System</h2>
 
       </div>
     </nav>
@@ -57,5 +63,21 @@
   </main>
 
 </body>
+
+<script>
+  // Get the current URL path
+  const currentPath = window.location.pathname;
+
+  // Remove the leading slash from the URL
+  const cleanPath = currentPath.substring(1);
+
+  // Get the navigation item corresponding to the current URL
+  const currentItem = document.getElementById(cleanPath);
+
+  // Add the "active" class to the current navigation item
+  if (currentItem) {
+    currentItem.classList.add("active");
+  }
+</script>
 
 </html>

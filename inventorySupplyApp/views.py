@@ -28,7 +28,19 @@ class InventoryList(generics.ListCreateAPIView):
 
 def SearchProject(request):
     value = request.POST['search']
-    inventory = Inventory.objects.filter(Q(inv_quantity__icontains=value) | Q(inv_class__icontains=value)).order_by('inv_type')
+    inventory = Inventory.objects.filter(
+        Q(inv_type__icontains=value) |
+        Q(inv_quantity__icontains=value) | 
+        Q(inv_description__icontains=value) |
+        Q(inv_model__icontains=value) |
+        Q(inv_serial__icontains=value) |
+        Q(inv_acqCost__icontains=value) |
+        Q(inv_acqDate__icontains=value) |
+        Q(inv_loc__icontains=value) |
+        Q(inv_class__icontains=value) 
+
+        
+        ).order_by('inv_type')
     return render(request, 'components/home.html',{'inventory': inventory,})
     
 
@@ -66,10 +78,9 @@ def add_inventory(request):
 def view_inventory(request,id):
     context ={}
  
-    # add the dictionary during initialization
-    context["view"] = Inventory.objects.get(id = id)
+    view = Inventory.objects.get(id = id)
          
-    return render(request, "crud/view.html", context)
+    return render(request, "crud/view.html", {'view': view})
 
 def edit_inventory(request,id):
     context = {}
@@ -92,6 +103,17 @@ def update_inventory(request, id):
     context["update"] = form
  
     return render(request, "crud/update.html", context)
+
+
+def delete_view(request, id):
+    context = {}
+    obj = get_object_or_404(Inventory, id=id)
+
+    if request.method == "POST":
+        obj.delete()
+        return HttpResponseRedirect("/")
+
+    return render(request, "crud/view.html", context)
 
 def delete_inventory(request, id):
     context = {}

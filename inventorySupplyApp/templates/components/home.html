@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{%static 'css/home.css'%}">
 <h1 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard'></i>&nbsp;DASHBOARD</h2>
     <div class="input-group">
-        <form style="padding: 10px;" action="/searchbar" method="POST">
+        <form style="padding: 10px;" action="{% url 'searchbar' %}" method="POST">
             {% csrf_token %}
             <div class="search-container">
                 <div class="search-icon">
@@ -33,14 +33,16 @@
         <div class="container d-flex">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Semi-Expendable Units</h5>
+                    <h5 class="card-title">Semi-Expendable Units</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total records:</h6>
                     <div class="card-text text-primary" style="font-size: 2rem; font-weight: bold;">{{semi_exp}}</div>
                 </div>
             </div>
 
             <div class="card" style="width: 18rem; margin-left: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Non Semi-Expendable Units</h5>
+                    <h5 class="card-title">Non-Expendable Units</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Total records:</h6>
                     <div class="card-text text-primary" style="font-size: 2rem; font-weight: bold;">{{non_exp}}</div>
                 </div>
             </div>
@@ -53,77 +55,16 @@
         <div class="table-responsive">
             <br>
 
-            <table id="inventory-table" class="table table-bordered table-hover" width="100%" data-sort-order="asc">
-
+            <table id="inventory-table" class="table table-bordered table-hover table-fixed" data-sort-order="asc">
                 <thead>
                     <th>TYPE</th>
-                    <th>QUANTITY</th>
+                    <th>QTY</th>
                     <th>DESCRIPTION</th>
-                    <th>PROPERTY NO</th>
-                    <th>MODEL NO</th>
-                    <th>SERIAL NO</th>
+                    <th width="100%">PROPERTY NO</th>
+                    <th width="100%">MODEL NO</th>
+                    <th width="50%">SERIAL NO</th>
                     <th>ACQUISITION DATE</th>
-                    <th>ACQUISITION COST</th>
-                    <th>ACCOUNTABLE PERSON</th>
-                    <th data-sortable="true" onclick="sortTable('9')">LOCATION</th>
-                    <th>CLASSIFICATION</th>
-                    <th colspan="2"></th>
-                </thead>
-                <tbody>
-                    {% for inv in inventory %}
-                    <tr>
-                        <td>{{ inv.inv_type|linebreaksbr }}</td>
-                        <td>{{ inv.inv_quantity|linebreaksbr }}</td>
-                        <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
-                        <td>{{ inv.inv_property|linebreaksbr }}</td>
-                        <td>{{ inv.inv_model|linebreaksbr}}</td>
-                        <td>
-                            <a href="{% url 'view' inv.id %}">
-                                {{ inv.inv_serial|linebreaksbr}}
-                            </a>
-
-                        </td>
-                        <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
-                        <td>{{ inv.inv_acqCost|linebreaksbr}}</td>
-                        <td>{{ inv.inv_accountable|linebreaksbr}}</td>
-                        <td>{{ inv.inv_loc|linebreaksbr}}</td>
-                        <td>{{ inv.inv_class|linebreaksbr}}</td>
-
-                        <td colspan="2">
-                            <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                <a href="{% url 'update_inventory' inv.id %}" class="btn btn-primary btn-xs"
-                                    data-title="Edit" data-toggle="modal" data-target="#edit">
-                                    Edit
-                                </a>
-                            </p>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                Delete
-                            </button>
-                            </p>
-
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-        </div>
-
-        {% else %}
-        <div class="table-responsive">
-            <br>
-            <table id="inventory-table" class="table table-bordered table-hover" width="100%" data-sort-order="asc">
-                <thead>
-                    <th>TYPE</th>
-                    <th>QUANTITY</th>
-                    <th>DESCRIPTION</th>
-                    <th>PROPERTY NO</th>
-                    <th>MODEL NO</th>
-                    <th>SERIAL NO</th>
-                    <th>ACQUISITION DATE</th>
-                    <th>ACQUISITION COST</th>
-                    <th>ACCOUNTABLE PERSON</th>
-                    <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th>
+                    <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
                     <th>CLASSIFICATION</th>
                     <th colspan="2"></th>
                 </thead>
@@ -141,9 +82,64 @@
                         <td>{{ inv.inv_model|linebreaksbr}}</td>
                         <td>{{ inv.inv_serial|linebreaksbr}}</td>
                         <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
-                        <td>{{ inv.inv_acqCost|linebreaksbr}}</td>
-                        <td>{{ inv.inv_accountable|linebreaksbr}}</td>
-                        <td>{{ inv.inv_loc|linebreaksbr}}</td>
+                        <td>{{ inv.inv_class|linebreaksbr}}</td>
+
+
+                        <td colspan="2">
+                            <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#viewModal{{inv.id}}">
+                                View
+                            </button>
+                            <div style="margin-top: 15px;"></div>
+                            <a href="{% url 'update' inv.id %}" class="btn btn-primary">
+                                Edit
+                            </a>
+                            <div style="margin-top: 15px;"></div>
+                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#deleteModal{{inv.id}}">
+                                Delete
+                            </button>
+                            </p>
+
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+        {% else %}
+        <div class="table-responsive">
+            <br>
+            <table id="inventory-table" class="table table-bordered table-hover table-fixed" data-sort-order="asc">
+                <thead>
+                    <th>TYPE</th>
+                    <th>QTY</th>
+                    <th>DESCRIPTION</th>
+                    <th width="100%">PROPERTY NO</th>
+                    <th width="100%">MODEL NO</th>
+                    <th width="50%">SERIAL NO</th>
+                    <th>ACQUISITION DATE</th>
+                    <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
+                    <th>CLASSIFICATION</th>
+                    <th colspan="2"></th>
+                </thead>
+                <tbody>
+                    {% for inv in inventory %}
+                    <tr>
+                        <td>{{ inv.inv_type|linebreaksbr }}</td>
+                        <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
+                        <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
+                        <td>
+                            <a href="{% url 'view' inv.id %}">
+                                {{ inv.inv_property|linebreaksbr}}
+                            </a>
+                        </td>
+                        <td>{{ inv.inv_model|linebreaksbr}}</td>
+                        <td>{{ inv.inv_serial|linebreaksbr}}</td>
+                        <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
                         <td>{{ inv.inv_class|linebreaksbr}}</td>
 
 
@@ -175,71 +171,72 @@
 
         {% endif %}
 
-        {% for inv in inventory %}
-        <div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog"
-            aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        This will permanently delete the data.
-                    </div>
-                    <div class="modal-footer">
-                        <form method="POST" action="{% url 'delete_inventory' inv.id %}">
-                            {% csrf_token %}
-                            Are you sure you want to continue?
-                            <input class="btn btn-danger" type="submit" value="Yes" />
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+        <div>
 
-
-        {% for inv in inventory %}
-        <div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="viewModalLabel">{{inv.inv_property}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" style="padding: 10px;">
-                            <label class="lbl-view">Serial Number:</label>
-                            <div class="txt-view">{{inv.inv_serial}}</div>
-                            <label class="lbl-view">Type:</label>
-                            <div class="txt-view">{{inv.inv_type}}</div>
-                            <label class="lbl-view">Acquisition Date:</label>
-                            <div class="txt-view">{{inv.inv_acqDate}}</div>
-                        </form>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div style="display: flex; align-items: center;">
-                            <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs">
-                                Check full details
-                                <i class='bx bx-chevron-right bx-sm'></i>
-                            </a>
+            {% for inv in inventory %}
+            <div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog"
+                aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <div class="modal-body">
+                            This will permanently delete the data.
+                        </div>
+                        <div class="modal-footer">
+                            <form method="POST" action="{% url 'delete_inventory' inv.id %}">
+                                {% csrf_token %}
+                                Are you sure you want to continue?
+                                <input class="btn btn-danger" type="submit" value="Yes" />
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
 
+
+            {% for inv in inventory %}
+            <div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog"
+                aria-labelledby="viewModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewModalLabel">{{inv.inv_property}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="" style="padding: 10px;">
+                                <label class="lbl-view">Serial Number:</label>
+                                <div class="txt-view">{{inv.inv_serial}}</div>
+                                <label class="lbl-view">Type:</label>
+                                <div class="txt-view">{{inv.inv_type}}</div>
+                                <label class="lbl-view">Acquisition Date:</label>
+                                <div class="txt-view">{{inv.inv_acqDate}}</div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div style="display: flex; align-items: center;">
+                                <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs">
+                                    Check full details
+                                </a>
+                            </div>
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
     </section>
 
 

@@ -32,15 +32,39 @@
                 </div>
             </div>
         </fieldset>
-        <div class="btn-set">
-            <a href="/{{view.id}}/update"><button class="btn btn-success">Update</button></a>
-            <a href="/{{view.id}}/delete"><button class="btn btn-danger">Delete</button></a>
-        </div>
+
     </form>
+    <div class="btn-set">
+        <a href="{% url 'update' view.id %}"><button class="btn btn-primary">Update</button></a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{view.id}}">
+            Delete
+        </button>
+    </div>
 
+    <div class="modal fade" id="deleteModal{{ view.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    This will permanently delete the data.
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" action="{% url 'delete_inventory' view.id %}">
+                        {% csrf_token %}
+                        Are you sure you want to continue?
+                        <input class="btn btn-danger" type="submit" value="Yes" />
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
- 
 </div>
 {% endblock content %}
-    
