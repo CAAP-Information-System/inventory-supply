@@ -1,16 +1,15 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %} s
 
 
 {% block content %}
 <div class="main">
-    <!-- Create a Form -->
+    <h1 class="text-danger"><i class='bx bxs-edit'></i>&nbsp;Edit View</h1>
     <form method="POST">
-        <!-- Security token by Django -->
+
         {% csrf_token %}
- 
-        <!-- form as paragraph -->
-        {{ update.as_p }}
+
+        {{ update|crispy }}
  
         <input type="submit" value="Update">
     </form>

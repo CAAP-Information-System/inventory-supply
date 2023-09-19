@@ -1,6 +1,5 @@
 # views.py
 from .forms import *
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import (get_object_or_404,
@@ -20,12 +19,6 @@ from django.db.models import Q
 from django.template import loader
 
 
-
-# class InventoryList(generics.ListAPIView):
-#     queryset = Inventory.objects.all()
-#     serializer_class = InventorySerializer
-#     filter_backends = [filters.SearchFilter]
-#     search_fields = ['inv_type', 'inv_id']
 
 class InventoryList(generics.ListCreateAPIView):
     queryset = Inventory.objects.all()
@@ -66,13 +59,6 @@ def home_sort_by_type(request):
     inventory = Inventory.objects.order_by('inv_type').values()
     return render(request, 'components/home.html', {'inventory': inventory})
 
-# def home_sort_by_loc(request):
-#     inventory = Inventory.objects.all().order_by('-inv_loc').values()
-#     template = loader.get_template('components/home.html')
-#     context = {
-#         'inventory': inventory,
-#         }
-#     return HttpResponse(template.render(context, request))
 
 def home(request, sort_order='asc'):
 
@@ -98,6 +84,7 @@ def add_inventory(request):
     context['form']= form
     if form.is_valid():
         form.save()
+        messages.success(request, 'New inventory Added.') 
         return HttpResponseRedirect("/")
     # if request.GET:
     #     temp = request.GET['inv_acqDate']   

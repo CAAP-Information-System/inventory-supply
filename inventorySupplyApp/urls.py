@@ -5,7 +5,7 @@ urlpatterns = [
     path('searchbar', views.SearchProject, name='SearchProject' ), 
 
     path('', views.home),
-    path('add', views.add_inventory, name='add'),
+    path('add/', views.add_inventory, name='add'),
     path('edit/<int:id>', views.edit_inventory),  
     path('view/<int:id>', views.view_inventory, name='view'),  
     path('update/<int:id>/', views.update_inventory, name='update'),  
