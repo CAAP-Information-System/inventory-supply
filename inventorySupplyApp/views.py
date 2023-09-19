@@ -1,5 +1,6 @@
 # views.py
 from .forms import *
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import (get_object_or_404,
@@ -31,29 +32,35 @@ class InventoryList(generics.ListCreateAPIView):
     serializer_class = InventorySerializer
 
 # Create your views here.
-def home(request):
+# def home(request):
 
-    obj = get_object_or_404(Inventory, id = id)
+#     obj = get_object_or_404(Inventory, id = id)
  
  
-    if request.method =="POST":
-        obj.delete()
-        return HttpResponseRedirect("/")
+#     if request.method =="POST":
+#         obj.delete()
+#         return HttpResponseRedirect("/")
  
-    inventory = Inventory.objects.all()  
-    if request.method == 'POST':
-        searched = request.POST['searched']
-        inventory = Inventory.objects.filter(
-            Q(inv_type__icontains=searched) |
-            Q(inv_model__icontains=searched) |
-            Q(inv_serial__icontains=searched) |
-            Q(inv_loc__icontains=searched)
+#     inventory = Inventory.objects.all()  
+#     if request.method == 'POST':
+#         searched = request.POST['searched']
+#         inventory = Inventory.objects.filter(
+#             Q(inv_type__icontains=searched) |
+#             Q(inv_model__icontains=searched) |
+#             Q(inv_serial__icontains=searched) |
+#             Q(inv_loc__icontains=searched)
             
-        )
-        filtered_letter = Inventory.objects.filter(inv_loc__istartswith=searched).order_by('inv_loc')
-        return render(request, 'components/home.html',{'inventory': inventory, 'searched':searched, 'filtered_letter':filtered_letter})
-    else:
-        return render(request, 'components/home.html',{'inventory': inventory,})
+#         )
+#         filtered_letter = Inventory.objects.filter(inv_loc__istartswith=searched).order_by('inv_loc')
+#         return render(request, 'components/home.html',{'inventory': inventory, 'searched':searched, 'filtered_letter':filtered_letter})
+#     else:
+#         return render(request, 'components/home.html',{'inventory': inventory,})
+    
+def SearchProject(request):
+    value = request.POST['search']
+    inventory = Inventory.objects.filter(Q(inv_quantity__icontains=value) | Q(inv_class__icontains=value)).order_by('inv_type')
+    return render(request, 'components/home.html',{'inventory': inventory,})
+    
     
 def home_sort_by_type(request):
     inventory = Inventory.objects.order_by('inv_type').values()

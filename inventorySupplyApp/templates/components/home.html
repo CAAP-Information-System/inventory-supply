@@ -6,13 +6,16 @@
 <link rel="stylesheet" type="text/css" href="{%static 'css/home.css'%}">
 <h2 style="padding: 10px;">Dashboard</h2>
 <div class="input-group">
-    <form style="padding: 10px;" action="/" method="POST">
+    <form style="padding: 10px;" action="/searchbar" method="POST">
         {% csrf_token %}
-        <div style="display: flex; gap: 5vh;">
-            <input type="search" class="form-control rounded" name="searched" placeholder="Search" aria-label="Search"
-                aria-describedby="search-addon" />
-            <button type="submit" class="btn btn-outline-primary">search</button>
-        </div>
+        <div class="search-container">
+    <div class="search-icon">
+      <i class="fa fa-search"></i>
+    </div>
+    <input type="text" class="search" name="search" placeholder="Search...">
+    <button class="search-button">Search</button>
+  </div>
+  </form>
     </form>
 </div>
 
@@ -24,7 +27,8 @@
 <div class="table-responsive">
     <br>
 
-    <table id="bootstrapdatatable" class="table table-bordered" width="100%">
+    <table id="inventory-table" class="table table-bordered table-hover" width="100%" data-sort-order="asc">
+
         <thead>
             <th>TYPE</th>
             <th>QUANTITY</th>   
@@ -35,7 +39,7 @@
             <th>ACQUISITION DATE</th>
             <th>ACQUISITION COST</th>
             <th>ACCOUNTABLE PERSON</th>
-            <th>LOCATION</th>
+            <th data-sortable="true" onclick="sortTable('9')">LOCATION</th>
             <th>CLASSIFICATION</th>
             <th colspan="2"></th>
         </thead>
@@ -82,7 +86,7 @@
 {% else %}
 <div class="table-responsive">
     <br>
-    <table id="inventory-table" class="table table-bordered table-hover" width="100%">
+    <table id="inventory-table" class="table table-bordered table-hover" width="100%" data-sort-order="asc">
         <thead>
             <th>TYPE</th>
             <th>QUANTITY</th>
@@ -93,10 +97,7 @@
             <th>ACQUISITION DATE</th>
             <th>ACQUISITION COST</th>
             <th>ACCOUNTABLE PERSON</th>
-            <th>
-                <a href="{% url 'home' sort_order=toggle_sort_order %}">
-                    <i class='bx bx-sort'></i>LOCATION
-                </a></th>
+            <th data-sortable="true" onclick="sortTable('9')">LOCATION</th>
             <th>CLASSIFICATION</th>
             <th colspan="2"></th>
         </thead>
@@ -207,20 +208,45 @@
 {% endfor %}
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#sort-by-type-button").on("click", function (e) {
-            e.preventDefault();
-            $.ajax({
-                url: "{% url 'home_sort_by_type' %}",
-                success: function (data) {
-                    $("#inventory-table").html(data);
-                }
-            });
-        });
 
-        // Add similar AJAX handling for other sorting buttons
-    });
+<script>
+    function sortTable(columnName) {
+        var table, rows, switching, i, x, y, shouldSwitch, ascending;
+        table = document.querySelector('table');
+        switching = true;
+        ascending = table.getAttribute('data-sort-order') === 'asc';
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName('td')[columnName];
+                y = rows[i + 1].getElementsByTagName('td')[columnName];
+
+                if (ascending) {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+
+        // Toggle the sort order
+        table.setAttribute('data-sort-order', ascending ? 'desc' : 'asc');
+    }
 </script>
+
 {% endblock content %}
