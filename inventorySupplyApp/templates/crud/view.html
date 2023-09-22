@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{%static 'css/view.css'%}">
@@ -26,7 +27,7 @@
                     <label class="label" for="">Acquisition Date</label>
                     <p class="details">{{ view.inv_acqDate }}</p>
                     <label class="label" for="">Acquisition Cost</label>
-                    <p class="details">Php {{ view.inv_acqCost }}</p>
+                    <p class="details">Php {{ view.inv_acqCost|floatformat:0|intcomma  }}</p>
                     <label class="label" for="">Classification</label>
                     <p class="details" style="text-align: left;">{{ view.inv_class }}</p>
                 </div>

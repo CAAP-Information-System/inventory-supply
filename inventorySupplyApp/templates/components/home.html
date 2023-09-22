@@ -55,14 +55,14 @@
         <div class="table-responsive">
             <br>
 
-            <table id="inventory-table" class="table table-bordered table-hover table-fixed" data-sort-order="asc">
+            <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
                 <thead>
                     <th>TYPE</th>
                     <th>QTY</th>
                     <th>DESCRIPTION</th>
-                    <th width="100%">PROPERTY NO</th>
-                    <th width="100%">MODEL NO</th>
-                    <th width="50%">SERIAL NO</th>
+                    <th width="30%">PROPERTY NO</th>
+                    <th width="20%">MODEL NO</th>
+                    <th width="100%">SERIAL NO</th>
                     <th>ACQUISITION DATE</th>
                     <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
                     <th>CLASSIFICATION</th>
@@ -72,7 +72,7 @@
                     {% for inv in inventory %}
                     <tr>
                         <td>{{ inv.inv_type|linebreaksbr }}</td>
-                        <td>{{ inv.inv_quantity|linebreaksbr }}</td>
+                        <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
                         <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
                         <td>
                             <a href="{% url 'view' inv.id %}">
@@ -113,14 +113,14 @@
         {% else %}
         <div class="table-responsive">
             <br>
-            <table id="inventory-table" class="table table-bordered table-hover table-fixed" data-sort-order="asc">
+            <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
                 <thead>
                     <th>TYPE</th>
                     <th>QTY</th>
                     <th>DESCRIPTION</th>
-                    <th width="100%">PROPERTY NO</th>
-                    <th width="100%">MODEL NO</th>
-                    <th width="50%">SERIAL NO</th>
+                    <th width="30%">PROPERTY NO</th>
+                    <th width="20%">MODEL NO</th>
+                    <th width="100%">SERIAL NO</th>
                     <th>ACQUISITION DATE</th>
                     <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
                     <th>CLASSIFICATION</th>
