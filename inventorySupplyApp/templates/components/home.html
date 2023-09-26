@@ -4,280 +4,378 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{%static 'css/home.css'%}">
-<h1 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard'></i>&nbsp;DASHBOARD</h2>
-    <div class="input-group">
-        <form style="padding: 10px;" action="{% url 'searchbar' %}" method="POST">
-            {% csrf_token %}
-            <div class="search-container">
-                <div class="search-icon">
-                    <i class="fa fa-search"></i>
-                </div>
-                <input type="text" class="search" name="search" placeholder="Search...">
-                <button class="btn btn-info">Search</button>
+<h1 class="text-secondary">Quarterly Report of the Physical Count of Property, Plant, Equipment (RPCPPE)</h1>
+<h3 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard'></i>&nbsp;DASHBOARD</h3>
+<div class="input-group">
+    <form style="padding: 10px;" action="{% url 'searchbar' %}" method="POST">
+        {% csrf_token %}
+        <div class="search-container">
+            <div class="search-icon">
+                <i class="fa fa-search"></i>
             </div>
-        </form>
-        </form>
+            <input type="text" class="search" name="search" placeholder="Search...">
+            <button class="btn btn-info">Search</button>
+        </div>
+    </form>
+    </form>
+</div>
+
+<br>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+<section>
+    <div class="container d-flex">
+
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+
+                <table>
+                    <thead>
+                        <th width="">Categories</th>
+                        <th style="text-align: center;">Unit Count</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Motor Vehicles:</td>
+                            <td style="text-align: center;">{{motorv}}</td>
+                        </tr>
+                        <tr>
+                            <td>Aircrafts and Aircraft Ground Equipment:</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Other Transportation Equipment</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Disaster Response and Rescue Equipment</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Land</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Other Land Improvements</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Sewer Systems</td>
+                            <td style="text-align: center;"></td>
+                        </tr>
+                        <tr>
+                            <td>Power Supply Systems</td>
+                            <td style="text-align: center;">8</td>
+                        </tr>
+                        <tr>
+                            <td>Airport Systems</td>
+                            <td style="text-align: center;">9</td>
+                        </tr>
+                        <tr>
+                            <td>Airport Equipment</td>
+                            <td style="text-align: center;">10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin: 20px;"></div>
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+
+                <table>
+                    <thead>
+                        <th width="">Categories</th>
+                        <th style="text-align: center;">Unit Count</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Buildings</td>
+                            <td style="text-align: center;">1</td>
+                        </tr>
+                        <tr>
+                            <td>Other Structures</td>
+                            <td style="text-align: center;">2</td>
+                        </tr>
+                        <tr>
+                            <td>Office Equipment</td>
+                            <td style="text-align: center;">3</td>
+                        </tr>
+                        <tr>
+                            <td>Furnitures and Fixtures</td>
+                            <td style="text-align: center;">4</td>
+                        </tr> 
+                        <tr>
+                            <td>Other Property Plant and Equipment</td>
+                            <td style="text-align: center;">5</td>
+                        </tr>
+                        <tr>
+                            <td>Information and Communication Technical Equipment</td>
+                            <td style="text-align: center;">6</td>
+                        </tr>
+                        <tr>
+                            <td>Communication Equipment</td>
+                            <td style="text-align: center;">7</td>
+                        </tr>
+                        <tr>
+                            <td>Medical Equipment</td>
+                            <td style="text-align: center;">8</td>
+                        </tr>
+                        <tr>
+                            <td>Technical and Scientific Equipment</td>
+                            <td style="text-align: center;">9</td>
+                        </tr>
+                        <tr>
+                            <td>Other Equipment</td>
+                            <td style="text-align: center;">10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
-    <br>
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
-        {% endfor %}
-    </ul>
+</section>
+
+<section>
+    {% if searched %}
+    <div class="table-responsive">
+        <br>
+
+        <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
+            <thead>
+                <th>TYPE</th>
+                <th>QTY</th>
+                <th>DESCRIPTION</th>
+                <th width="30%">PROPERTY NO</th>
+                <th width="20%">MODEL NO</th>
+                <th width="100%">SERIAL NO</th>
+                <th>ACQUISITION DATE</th>
+                <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
+                <th>CLASSIFICATION</th>
+                <th colspan="2"></th>
+            </thead>
+            <tbody>
+                {% for inv in inventory %}
+                <tr>
+                    <td>{{ inv.inv_type|linebreaksbr }}</td>
+                    <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
+                    <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
+                    <td>
+                        <a href="{% url 'view' inv.id %}">
+                            {{ inv.inv_property|linebreaksbr}}
+                        </a>
+                    </td>
+                    <td>{{ inv.inv_model|linebreaksbr}}</td>
+                    <td>{{ inv.inv_serial|linebreaksbr}}</td>
+                    <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
+                    <td>{{ inv.inv_class|linebreaksbr}}</td>
+
+
+                    <td colspan="2">
+                        <!-- <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#viewModal{{inv.id}}">
+                                View
+                            </button> -->
+                        <div style="margin-top: 15px;"></div>
+                        <a href="{% url 'update' inv.id %}" class="btn btn-primary">
+                            Edit
+                        </a>
+                        <div style="margin-top: 15px;"></div>
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#deleteModal{{inv.id}}">
+                            Delete
+                        </button>
+                        </p>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    {% else %}
+    <div class="table-responsive">
+        <br>
+        <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
+            <thead>
+                <th width="20%">TYPE</th>
+                <th>QTY</th>
+                <th width="20%">DESCRIPTION</th>
+                <th width="30%">PROPERTY NO</th>
+                <th width="20%">MODEL NO</th>
+                <th width="100%">SERIAL NO</th>
+                <th>ACQUISITION DATE</th>
+                <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
+                <th width="100%">CLASSIFICATION</th>
+                <th colspan="2"></th>
+            </thead>
+            <tbody>
+                {% for inv in inventory %}
+                <tr>
+                    <td>{{ inv.inv_type|linebreaksbr }}</td>
+                    <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
+                    <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
+                    <td>
+                        <a href="{% url 'view' inv.id %}">
+                            {{ inv.inv_property|linebreaksbr}}
+                        </a>
+                    </td>
+                    <td>{{ inv.inv_model|linebreaksbr}}</td>
+                    <td>{{ inv.inv_serial|linebreaksbr}}</td>
+                    <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
+                    <td>{{ inv.inv_class|linebreaksbr}}</td>
+
+
+                    <td colspan="2">
+                        <!-- <button type="button" class="btn btn-warning" data-toggle="modal"
+                                data-target="#viewModal{{inv.id}}">
+                                View
+                            </button> -->
+                        <div style="margin-top: 15px;"></div>
+                        <a href="{% url 'update' inv.id %}" class="btn btn-primary">
+                            Edit
+                        </a>
+                        <div style="margin-top: 15px;"></div>
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#deleteModal{{inv.id}}">
+                            Delete
+                        </button>
+                        </p>
+
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+
     {% endif %}
 
-    <section>
-        <div class="container d-flex">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Semi-Expendable Units</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Total records:</h6>
-                    <div class="card-text text-primary" style="font-size: 2rem; font-weight: bold;">{{semi_exp}}</div>
-                </div>
-            </div>
+    <div>
 
-            <div class="card" style="width: 18rem; margin-left: 20px;">
-                <div class="card-body">
-                    <h5 class="card-title">Non-Expendable Units</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Total records:</h6>
-                    <div class="card-text text-primary" style="font-size: 2rem; font-weight: bold;">{{non_exp}}</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section>
-        {% if searched %}
-        <div class="table-responsive">
-            <br>
-
-            <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
-                <thead>
-                    <th>TYPE</th>
-                    <th>QTY</th>
-                    <th>DESCRIPTION</th>
-                    <th width="30%">PROPERTY NO</th>
-                    <th width="20%">MODEL NO</th>
-                    <th width="100%">SERIAL NO</th>
-                    <th>ACQUISITION DATE</th>
-                    <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
-                    <th>CLASSIFICATION</th>
-                    <th colspan="2"></th>
-                </thead>
-                <tbody>
-                    {% for inv in inventory %}
-                    <tr>
-                        <td>{{ inv.inv_type|linebreaksbr }}</td>
-                        <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
-                        <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
-                        <td>
-                            <a href="{% url 'view' inv.id %}">
-                                {{ inv.inv_property|linebreaksbr}}
-                            </a>
-                        </td>
-                        <td>{{ inv.inv_model|linebreaksbr}}</td>
-                        <td>{{ inv.inv_serial|linebreaksbr}}</td>
-                        <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
-                        <td>{{ inv.inv_class|linebreaksbr}}</td>
-
-
-                        <td colspan="2">
-                            <button type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#viewModal{{inv.id}}">
-                                View
-                            </button>
-                            <div style="margin-top: 15px;"></div>
-                            <a href="{% url 'update' inv.id %}" class="btn btn-primary">
-                                Edit
-                            </a>
-                            <div style="margin-top: 15px;"></div>
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#deleteModal{{inv.id}}">
-                                Delete
-                            </button>
-                            </p>
-
-                        </td>
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-        </div>
-
-        {% else %}
-        <div class="table-responsive">
-            <br>
-            <table id="inventory-table" class="table table-bordered table-hover" data-sort-order="asc">
-                <thead>
-                    <th>TYPE</th>
-                    <th>QTY</th>
-                    <th>DESCRIPTION</th>
-                    <th width="30%">PROPERTY NO</th>
-                    <th width="20%">MODEL NO</th>
-                    <th width="100%">SERIAL NO</th>
-                    <th>ACQUISITION DATE</th>
-                    <!-- <th class="pointer" data-sortable="true" onclick="sortTable('9')">LOCATION</th> -->
-                    <th>CLASSIFICATION</th>
-                    <th colspan="2"></th>
-                </thead>
-                <tbody>
-                    {% for inv in inventory %}
-                    <tr>
-                        <td>{{ inv.inv_type|linebreaksbr }}</td>
-                        <td style="text-align: center;">{{ inv.inv_quantity|linebreaksbr }}</td>
-                        <td>{{ inv.inv_description|truncatechars:50|linebreaksbr }}</td>
-                        <td>
-                            <a href="{% url 'view' inv.id %}">
-                                {{ inv.inv_property|linebreaksbr}}
-                            </a>
-                        </td>
-                        <td>{{ inv.inv_model|linebreaksbr}}</td>
-                        <td>{{ inv.inv_serial|linebreaksbr}}</td>
-                        <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
-                        <td>{{ inv.inv_class|linebreaksbr}}</td>
-
-
-                        <td colspan="2">
-                            <button type="button" class="btn btn-warning" data-toggle="modal"
-                                data-target="#viewModal{{inv.id}}">
-                                View
-                            </button>
-                            <div style="margin-top: 15px;"></div>
-                            <a href="{% url 'update' inv.id %}" class="btn btn-primary">
-                                Edit
-                            </a>
-                            <div style="margin-top: 15px;"></div>
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#deleteModal{{inv.id}}">
-                                Delete
-                            </button>
-                            </p>
-
-                        </td>
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-        </div>
-
-
-        {% endif %}
-
-        <div>
-
-            {% for inv in inventory %}
-            <div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog"
-                aria-labelledby="deleteModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            This will permanently delete the data.
-                        </div>
-                        <div class="modal-footer">
-                            <form method="POST" action="{% url 'delete_inventory' inv.id %}">
-                                {% csrf_token %}
-                                Are you sure you want to continue?
-                                <input class="btn btn-danger" type="submit" value="Yes" />
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                            </form>
-                        </div>
+        {% for inv in inventory %}
+        <div class="modal fade" id="deleteModal{{ inv.id }}" tabindex="-1" role="dialog"
+            aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-danger" id="deleteModalLabel">Delete inventory</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        This will permanently delete the data.
+                    </div>
+                    <div class="modal-footer">
+                        <form method="POST" action="{% url 'delete_inventory' inv.id %}">
+                            {% csrf_token %}
+                            Are you sure you want to continue?
+                            <input class="btn btn-danger" type="submit" value="Yes" />
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        </form>
                     </div>
                 </div>
             </div>
-            {% endfor %}
+        </div>
+        {% endfor %}
 
 
-            {% for inv in inventory %}
-            <div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog"
-                aria-labelledby="viewModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="viewModalLabel">{{inv.inv_property}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        {% for inv in inventory %}
+        <div class="modal fade" id="viewModal{{ inv.id }}" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewModalLabel">{{inv.inv_property}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" style="padding: 10px;">
+                            <label class="lbl-view">Serial Number:</label>
+                            <div class="txt-view">{{inv.inv_serial}}</div>
+                            <label class="lbl-view">Type:</label>
+                            <div class="txt-view">{{inv.inv_type}}</div>
+                            <label class="lbl-view">Acquisition Date:</label>
+                            <div class="txt-view">{{inv.inv_acqDate}}</div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="display: flex; align-items: center;">
+                            <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs">
+                                Check full details
+                            </a>
                         </div>
-                        <div class="modal-body">
-                            <form action="" style="padding: 10px;">
-                                <label class="lbl-view">Serial Number:</label>
-                                <div class="txt-view">{{inv.inv_serial}}</div>
-                                <label class="lbl-view">Type:</label>
-                                <div class="txt-view">{{inv.inv_type}}</div>
-                                <label class="lbl-view">Acquisition Date:</label>
-                                <div class="txt-view">{{inv.inv_acqDate}}</div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <div style="display: flex; align-items: center;">
-                                <a href="{% url 'view' inv.id %}" class="btn btn-primary btn-xs">
-                                    Check full details
-                                </a>
-                            </div>
 
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
         </div>
-    </section>
+        {% endfor %}
+
+    </div>
+</section>
 
 
-    <script>
-        function sortTable(columnName) {
-            var table, rows, switching, i, x, y, shouldSwitch, ascending;
-            table = document.querySelector('table');
-            switching = true;
-            ascending = table.getAttribute('data-sort-order') === 'asc';
+<script>
+    function sortTable(columnName) {
+        var table, rows, switching, i, x, y, shouldSwitch, ascending;
+        table = document.querySelector('table');
+        switching = true;
+        ascending = table.getAttribute('data-sort-order') === 'asc';
 
-            while (switching) {
-                switching = false;
-                rows = table.rows;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
 
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName('td')[columnName];
-                    y = rows[i + 1].getElementsByTagName('td')[columnName];
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName('td')[columnName];
+                y = rows[i + 1].getElementsByTagName('td')[columnName];
 
-                    if (ascending) {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
+                if (ascending) {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
                     }
-                }
-
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
+                } else {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             }
 
-            // Toggle the sort order
-            table.setAttribute('data-sort-order', ascending ? 'desc' : 'asc');
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
         }
-    </script>
 
-    {% endblock content %}
+        // Toggle the sort order
+        table.setAttribute('data-sort-order', ascending ? 'desc' : 'asc');
+    }
+</script>
+
+{% endblock content %}

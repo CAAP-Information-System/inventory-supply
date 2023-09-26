@@ -29,6 +29,11 @@ class Inventory(models.Model):
         ('Semi-expendable Equipment', 'Semi-expendable Equipment'),
         ('Non-expended Equipment', 'Non-expended Equipment'),
     ]
+    STATUS_CHOICES = [
+        ('Available-Service', 'Available-Service'),
+        ('Unavailable-Service', 'Unavailable-Service')
+
+    ]
     inv_type = models.CharField(max_length=100, choices=TYPE_CHOICES, null= True)
     inv_quantity = models.IntegerField(null=True)
     inv_description = models.TextField(max_length=2**31-1, null=True)  
@@ -37,9 +42,12 @@ class Inventory(models.Model):
     inv_serial = models.CharField(max_length=100, null=True)
     inv_acqDate = models.DateField(null=True)   
     inv_acqCost = models.FloatField(null=True)
-    inv_accountable = models.IntegerField( null=True) 
+    inv_accountable = models.CharField(max_length=100, null=True) 
     inv_loc = models.CharField(max_length=100, null=True) 
     inv_class = models.CharField(max_length=100, choices=CATEGORY_CHOICES, null=  True)
+    inv_status = models.CharField(max_length=100, choices=STATUS_CHOICES, null=  True)
+
+    
 
 
     class Meta:  

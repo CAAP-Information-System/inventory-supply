@@ -18,6 +18,7 @@ from rest_framework import generics
 from .serializers import InventorySerializer
 from django.db.models import Q
 from django.template import loader
+from collections import Counter
 
 
 
@@ -45,8 +46,8 @@ def SearchProject(request):
     
 
 def home(request, sort_order='asc'):
-    semi_exp = Inventory.objects.filter(inv_type='Semi-expendable Equipment').count()
-    non_exp = Inventory.objects.filter(inv_type='Non-expended Equipment').count()
+    motorv = Inventory.objects.filter(inv_class='Motor Vehicles').count()
+
     if sort_order == 'asc':
         inventory = Inventory.objects.order_by('inv_description')
         inventory = Inventory.objects.order_by('inv_loc')
@@ -59,11 +60,12 @@ def home(request, sort_order='asc'):
     context = {
         'inventory': inventory,
         'toggle_sort_order': toggle_sort_order,
-        'semi_exp':semi_exp,
-        'non_exp':non_exp
+        'motorv' : motorv,
     }
 
     return render(request, 'components/home.html', context)
+
+
 
 def add_inventory(request):
     context = {}
