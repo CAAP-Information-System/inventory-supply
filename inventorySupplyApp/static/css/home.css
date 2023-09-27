@@ -1,6 +1,10 @@
 .main{
     padding-top: 10vh;
-}   
+} 
+.home-hdr{
+    padding: 2vh;
+    background-color: #ffff;
+}  
 .lbl-view{
     color: #7D7C7C;
     font-weight: bold;
@@ -18,5 +22,3 @@
 .pointer {
     cursor: pointer;
 }
-
-

@@ -48,7 +48,10 @@ class Inventory(models.Model):
     inv_status = models.CharField(max_length=100, choices=STATUS_CHOICES, null=  True)
 
     
-
-
+    def formatted_acqDate(self):
+        return self.inv_acqDate.strftime('%m-%d-%y')
+    
+    def calculate_total_value(self):
+        return self.inv_acqCost * self.inv_quantity
     class Meta:  
         db_table = "inventories"

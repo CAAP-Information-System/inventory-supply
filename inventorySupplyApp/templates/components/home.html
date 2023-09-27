@@ -4,8 +4,17 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{%static 'css/home.css'%}">
-<h1 class="text-secondary">Quarterly Report of the Physical Count of Property, Plant, Equipment (RPCPPE)</h1>
-<h3 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard'></i>&nbsp;DASHBOARD</h3>
+
+<style>
+    tr {
+    border-bottom: 2px solid #f3f3f3;
+  }
+
+</style>
+<header class="home-hdr">
+    <h1 class="text-secondary">Report of the Physical Count of Property, Plant & Equipment (RPCPPE)</h1>
+</header>
+<!-- <h3 style="padding: 10px; color: #3B71CA;"><i class='bx bxs-dashboard'></i>&nbsp;DASHBOARD</h3> -->
 <div class="input-group">
     <form style="padding: 10px;" action="{% url 'searchbar' %}" method="POST">
         {% csrf_token %}
@@ -38,51 +47,32 @@
         <div class="card" style="width: 20rem;">
             <div class="card-body">
 
-                <table>
+                <table class="table table-hover">
                     <thead>
                         <th width="">Categories</th>
                         <th style="text-align: center;">Unit Count</th>
                     </thead>
-                    <tbody>
+                    <tbody >
                         <tr>
-                            <td>Motor Vehicles:</td>
+                            <td >Motor Vehicles:</td>
                             <td style="text-align: center;">{{motorv}}</td>
                         </tr>
                         <tr>
                             <td>Aircrafts and Aircraft Ground Equipment:</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;">{{aage}}</td>
                         </tr>
                         <tr>
                             <td>Other Transportation Equipment</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;">{{ote}}</td>
                         </tr>
                         <tr>
                             <td>Disaster Response and Rescue Equipment</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;">{{drre}}</td>
                         </tr>
                         <tr>
                             <td>Land</td>
-                            <td style="text-align: center;"></td>
+                            <td style="text-align: center;">{{land}}</td>
                         </tr>
-                        <tr>
-                            <td>Other Land Improvements</td>
-                            <td style="text-align: center;"></td>
-                        </tr>
-                        <tr>
-                            <td>Sewer Systems</td>
-                            <td style="text-align: center;"></td>
-                        </tr>
-                        <tr>
-                            <td>Power Supply Systems</td>
-                            <td style="text-align: center;">8</td>
-                        </tr>
-                        <tr>
-                            <td>Airport Systems</td>
-                            <td style="text-align: center;">9</td>
-                        </tr>
-                        <tr>
-                            <td>Airport Equipment</td>
-                            <td style="text-align: center;">10</td>
                         </tr>
                     </tbody>
                 </table>
@@ -92,7 +82,41 @@
         <div class="card" style="width: 20rem;">
             <div class="card-body">
 
-                <table>
+                <table class="table table-hover">
+                    <thead>
+                        <th width="">Categories</th>
+                        <th style="text-align: center;">Unit Count</th>
+                    </thead>
+                    <tbody >
+                        <tr>
+                            <td>Other Land Improvements</td>
+                            <td style="text-align: center;">{{oli}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sewer Systems</td>
+                            <td style="text-align: center;">{{ss}}</td>
+                        </tr>
+                        <tr>
+                            <td>Power Supply Systems</td>
+                            <td style="text-align: center;">{{pps}}</td>
+                        </tr>
+                        <tr>
+                            <td>Airport Systems</td>
+                            <td style="text-align: center;">{{aps}}</td>
+                        </tr>
+                        <tr>
+                            <td>Airport Equipment</td>
+                            <td style="text-align: center;">{{aep}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin: 20px;"></div>
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+
+                <table class="table table-hover">
                     <thead>
                         <th width="">Categories</th>
                         <th style="text-align: center;">Unit Count</th>
@@ -100,43 +124,57 @@
                     <tbody>
                         <tr>
                             <td>Buildings</td>
-                            <td style="text-align: center;">1</td>
+                            <td style="text-align: center;">{{bld}}</td>
                         </tr>
                         <tr>
                             <td>Other Structures</td>
-                            <td style="text-align: center;">2</td>
+                            <td style="text-align: center;">{{oths}}</td>
                         </tr>
                         <tr>
                             <td>Office Equipment</td>
-                            <td style="text-align: center;">3</td>
+                            <td style="text-align: center;">{{offeq}}</td>
                         </tr>
                         <tr>
                             <td>Furnitures and Fixtures</td>
-                            <td style="text-align: center;">4</td>
+                            <td style="text-align: center;">{{ff}}</td>
                         </tr> 
                         <tr>
                             <td>Other Property Plant and Equipment</td>
-                            <td style="text-align: center;">5</td>
+                            <td style="text-align: center;">{{oppe}}</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin: 20px;"></div>
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+
+                <table class="table table-hover">
+                    <thead>
+                        <th width="">Categories</th>
+                        <th style="text-align: center;">Unit Count</th>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td>Information and Communication Technical Equipment</td>
-                            <td style="text-align: center;">6</td>
+                            <td style="text-align: center;">{{ict}}</td>
                         </tr>
                         <tr>
                             <td>Communication Equipment</td>
-                            <td style="text-align: center;">7</td>
+                            <td style="text-align: center;">{{comm}}</td>
                         </tr>
                         <tr>
                             <td>Medical Equipment</td>
-                            <td style="text-align: center;">8</td>
+                            <td style="text-align: center;">{{med}}</td>
                         </tr>
                         <tr>
                             <td>Technical and Scientific Equipment</td>
-                            <td style="text-align: center;">9</td>
+                            <td style="text-align: center;">{{techsci}}</td>
                         </tr>
                         <tr>
                             <td>Other Equipment</td>
-                            <td style="text-align: center;">10</td>
+                            <td style="text-align: center;">{{other}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -237,7 +275,7 @@
                     </td>
                     <td>{{ inv.inv_model|linebreaksbr}}</td>
                     <td>{{ inv.inv_serial|linebreaksbr}}</td>
-                    <td>{{ inv.inv_acqDate|linebreaksbr}}</td>
+                    <td>{{ inv.formatted_acqDate |linebreaksbr}}</td>
                     <td>{{ inv.inv_class|linebreaksbr}}</td>
 
 

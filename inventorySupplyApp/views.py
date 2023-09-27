@@ -47,7 +47,25 @@ def SearchProject(request):
 
 def home(request, sort_order='asc'):
     motorv = Inventory.objects.filter(inv_class='Motor Vehicles').count()
-
+    aage = Inventory.objects.filter(inv_class='Aircraft and Aircrafe Ground Equipment').count()
+    ote = Inventory.objects.filter(inv_class='Other Transportation Equipment').count()
+    drre = Inventory.objects.filter(inv_class='Disaster Response and Rescue Equipment').count()
+    land = Inventory.objects.filter(inv_class='Land').count()
+    oli = Inventory.objects.filter(inv_class='Other Land Improvements').count()
+    ss = Inventory.objects.filter(inv_class='Sewer Systems').count()
+    pps = Inventory.objects.filter(inv_class='Power Supply Systems').count()
+    aps = Inventory.objects.filter(inv_class='Airport Systems').count()
+    aep = Inventory.objects.filter(inv_class='Airport Equipment').count()
+    bld = Inventory.objects.filter(inv_class='Buildings').count()
+    oths = Inventory.objects.filter(inv_class='Other Structures').count()
+    offeq = Inventory.objects.filter(inv_class='Office Equipment').count()
+    ff = Inventory.objects.filter(inv_class='Furniture & Fixtures').count()
+    oppe = Inventory.objects.filter(inv_class='Other Property Plant and Equipment').count()
+    ict = Inventory.objects.filter(inv_class='Information and Communication Technical Equipment').count()
+    comm = Inventory.objects.filter(inv_class='Communication Equipment').count()
+    med = Inventory.objects.filter(inv_class='Medical Equipment').count()
+    techsci = Inventory.objects.filter(inv_class='Technical and Scientific Equipment ').count()
+    other = Inventory.objects.filter(inv_class='Other Equipment').count()
     if sort_order == 'asc':
         inventory = Inventory.objects.order_by('inv_description')
         inventory = Inventory.objects.order_by('inv_loc')
@@ -61,6 +79,25 @@ def home(request, sort_order='asc'):
         'inventory': inventory,
         'toggle_sort_order': toggle_sort_order,
         'motorv' : motorv,
+        'aage': aage,
+        'drre': drre,
+        'land': land,
+        'ote':ote,
+        'oli': oli,
+        'ss': ss,
+        'pps': pps,
+        'aps':aps,
+        'aep': aep,
+        'bld': bld,
+        'oths': oths,
+        'offeq': offeq,
+        'ff': ff,
+        'oppe': oppe,
+        'ict': ict,
+        'comm': comm,
+        'med': med,
+        'techsci': techsci,
+        'other': other
     }
 
     return render(request, 'components/home.html', context)
@@ -79,10 +116,12 @@ def add_inventory(request):
 
 def view_inventory(request,id):
     context ={}
- 
+    inventories = Inventory.objects.all()
     view = Inventory.objects.get(id = id)
+    for inv in inventories:
+        inv.totalValue = inv.inv_acqCost * inv.inv_quantity
          
-    return render(request, "crud/view.html", {'view': view})
+    return render(request, "crud/view.html", {'view': view, 'inventories': inventories},)
 
 def edit_inventory(request,id):
     context = {}

@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
-<div class="col-md-12">
+<link rel="stylesheet" type="text/css" href="{%static 'css/add.css'%}">
+<div class="add-main">
 
     <form method="POST" class="post-form" action="{% url 'add' %}">
         {% csrf_token %}
         <div class="container-fluid">
             <br>
-            <div class="form-group row">
-                <label class="col-sm-1 col-form-label"></label>
-                <div class="col-sm-4">
-                    <h3>Enter Details</h3>
-                </div>
-            </div>
+            <header class="add-hdr">Create new entry</header>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Accountable Person:</label>
                 <div class="col-sm-4">

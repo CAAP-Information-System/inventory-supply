@@ -1,27 +1,71 @@
-.form{
-    padding: 20px;
-}
+
 .form-row{
     display: flex;
     gap: 10vh;
 }
 .left-col{
     width: 60%;
-}
-.right-col{
-    border-radius: 10px;
-    background-color: #F1EFEF;
     padding: 5vh;
 }
+.right-col{
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 5vh;
+    height: 40%;
+}
 .label{
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 .btn-set{
-    padding: 10px;
+    padding: 20px;
 }
 
 .details{
     font-size: 20px;
     text-align: justify;
+}
+.prop_num{
+    background-color: #ffff;
+    width: 100%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin-bottom: 2vh;
+    border-radius: 10px;
+}
+.main-content{
+    background-color: #ffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.shortage{
+    background-color: #ffff;
+    border-radius: 10px;
+    margin-top: 15px;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.shrt-hdr{
+    background-color: #2E4374;
+    font-weight: bold;
+    font-size: 1.6rem; 
+    color: #ffff; 
+    padding: 6px;
+}
+.shortage-details{
+    padding: 10px;
+}
+#property{
+    border: 10px;
+    font-size: 2rem; 
+    background-color: #186F65; 
+    width: 100%; 
+    padding: 8px;
+    color: #ffff;
+}
+#rightcol{
+    color: #2E4374;
+    width: 100%;
 }

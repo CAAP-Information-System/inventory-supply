@@ -6,41 +6,62 @@
 <link rel="stylesheet" type="text/css" href="{%static 'css/view.css'%}">
 <div class="main">
 
-    <form class="form">
+    <div class="form">
         <fieldset>
             <div class="form-row">
                 <div class="left-col">
-                    <label class="label" for="">Inventory Type</label>
-                    <p class="details">{{ view.inv_type }}</p>
-                    <label class="label" for="">Quantity</label>
-                    <p class="details">{{ view.inv_quantity }}</p>
-                    <label class="label" for="">Description</label>
-                    <p class="details">{{ view.inv_description }}</p>
-                    <label class="label" for="">Location</label>
-                    <p class="details">{{ view.inv_loc }}</p>
+                    <div class="prop_num">
+                        <label class="label" id="property" for="">Property Number:</label>
+                        <p class="details" style="font-size: 1.7rem; padding: 10px;">{{ view.inv_property }}</p>
+                    </div>
+                    <div class="main-content">
+                        <label class="label" for="">Accountable Person</label>
+                        <p class="details">{{ view.inv_accountable }}</p>
+                        <label class="label" for="">Inventory Type</label>
+                        <p class="details">{{ view.inv_type }}</p>
+                        <label class="label" for="">Quantity</label>
+                        <p class="details">{{ view.inv_quantity }}</p>
+                        <label class="label" for="">Description</label>
+                        <p class="details">{{ view.inv_description }}</p>
+                        <label class="label" for="">Status <span class="text-secondary">(Available/Unavailable)</span></label>
+                        <p class="details">{{ view.inv_status }}</p>
+                        <label class="label" for="">Remarks/Whereabouts</label>
+                        <p class="details">{{ view.inv_loc }}</p>
+                    </div>
+                    <div class="shortage">
+                        <header class="shrt-hdr">Shortage / Overage</header>
+                        <div class="shortage-details">
+                            <label class="label" for="">Overall Value:</label>
+                            <p class="details" style="font-size: 1.6rem;">Php {{ view.calculate_total_value| floatformat:0|intcomma  }}</p>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="right-col">
-                    <label class="label" for="">Model No.</label>
+                    <label id="rightcol" class="label" for="">Model No.</label>
                     <p class="details">{{ view.inv_model }}</p>
-                    <label class="label" for="">Serial No.</label>
+                    <label id="rightcol" class="label" for="">Serial No.</label>
                     <p class="details">{{ view.inv_serial }}</p>
-                    <label class="label" for="">Acquisition Date</label>
+                    <label id="rightcol" class="label" for="">Unit of Measure</label>
+                    <p class="details">Add UOM here</p>
+                    <label id="rightcol" class="label" for="">Acquisition Date</label>
                     <p class="details">{{ view.inv_acqDate }}</p>
-                    <label class="label" for="">Acquisition Cost</label>
+                    <label id="rightcol" class="label" for="">Acquisition Cost</label>
                     <p class="details">Php {{ view.inv_acqCost|floatformat:0|intcomma  }}</p>
-                    <label class="label" for="">Classification</label>
+                    <label id="rightcol" class="label" for="">Classification</label>
                     <p class="details" style="text-align: left;">{{ view.inv_class }}</p>
                 </div>
             </div>
         </fieldset>
+        <div class="btn-set">
+            <a href="{% url 'update' view.id %}"><button class="btn btn-primary">Update</button></a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{view.id}}">
+                Delete
+            </button>
+        </div>
 
-    </form>
-    <div class="btn-set">
-        <a href="{% url 'update' view.id %}"><button class="btn btn-primary">Update</button></a>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{view.id}}">
-            Delete
-        </button>
     </div>
+    
 
     <div class="modal fade" id="deleteModal{{ view.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
         aria-hidden="true">

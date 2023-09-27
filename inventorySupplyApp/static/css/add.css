@@ -1,0 +1,11 @@
+.add-main{
+    padding: 2vh;
+}
+.add-hdr{
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.add-label{
+    font-size: 1.5rem;
+}
